@@ -1,0 +1,16 @@
+bin_PROGRAMS =
+
+if BUILD_APP1
+  bin_PROGRAMS += app1
+endif
+
+# sets the compiler flags.
+AM_CXXFLAGS = $(INTI_CFLAGS)
+
+# specifies the source files used to build the helloworld target
+# Note that the SOURCES variable for a target is prefixed by the name of the target, in this case helloworld.
+app1_SOURCES = app1main.cc 
+
+# specifies the libraries that must be passed to the linker to build the target.
+app1_LDADD = $(INTI_LIBS)
+
