@@ -1,5 +1,3 @@
-#an input file to autoconf that provides the macro invocations and shell code fragments autoconf uses to build a configure script.
-# AC_INIT([Bitcoin Core],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_REVISION, m4_if(_CLIENT_VERSION_BUILD, [0], [], _CLIENT_VERSION_BUILD))m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/bitcoin/bitcoin/issues],[bitcoin],[https://bitcoincore.org/])
 AC_INIT([app1], [0.1.0])
 AC_CONFIG_SRCDIR([src/app1main.cc])
 AM_INIT_AUTOMAKE
@@ -18,12 +16,10 @@ AC_MSG_CHECKING([whether to build app1])
 AM_CONDITIONAL([BUILD_APP1], [test x$build_app1 = xyes])
 AC_MSG_RESULT($build_app1)
 
-# libhelloworld_LIBS = '/home/vishswasb/work/proj/cppBoilerplate/lib/helloworld/src/helloworld.a'
-# libhelloworld_CFLAGS='-isystem /home/vishswasb/work/proj/cppBoilerplate/lib/helloworld/src/'
+libhelloworld_LIBS='$(top_builddir)/lib/helloworld/src/libhelloworld.a'
 
 AC_SUBST(APP1_NAME)
-# AC_SUBST(libhelloworld_CFLAGS)
-# AC_SUBST(libhelloworld_LIBS)
+AC_SUBST(libhelloworld_LIBS)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
