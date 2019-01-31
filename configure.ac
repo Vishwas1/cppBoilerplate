@@ -18,7 +18,12 @@ AC_MSG_CHECKING([whether to build app1])
 AM_CONDITIONAL([BUILD_APP1], [test x$build_app1 = xyes])
 AC_MSG_RESULT($build_app1)
 
+# libhelloworld_LIBS = '/home/vishswasb/work/proj/cppBoilerplate/lib/helloworld/src/helloworld.a'
+# libhelloworld_CFLAGS='-isystem /home/vishswasb/work/proj/cppBoilerplate/lib/helloworld/src/'
+
 AC_SUBST(APP1_NAME)
+# AC_SUBST(libhelloworld_CFLAGS)
+# AC_SUBST(libhelloworld_LIBS)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT

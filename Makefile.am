@@ -3,7 +3,8 @@
 
 
 #The SUBDIRS variable is used to list the subdirectories that must be built. 
-SUBDIRS = lib src
+AUTOMAKE_OPTIONS = foreign
+SUBDIRS = src
 
 APP1_BIN=$(top_builddir)/src/$(APP1_NAME)$(EXEEXT)
 

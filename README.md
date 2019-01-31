@@ -34,6 +34,11 @@ To get the HEAD of each submodule
 - `make`
 
 
+http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
+
+ - static vs dynamic library.
+ - static vs dynamic linking.
+
 
 
 
