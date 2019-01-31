@@ -86,3 +86,11 @@ compile
 depcomp
 install-sh
 missing
+
+README 
+INSTALL 
+NEWS 
+AUTHORS 
+ChangeLog
+COPYING
+Makefile
