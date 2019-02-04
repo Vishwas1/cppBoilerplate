@@ -40,6 +40,11 @@ http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
  - static vs dynamic linking.
 
 
+### Using BOOST library in project
+
+- The Boost C++ Libraries are a collection of modern libraries based on the C++ standard.
+- 
+
 
 
 
