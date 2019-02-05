@@ -2,3 +2,7 @@
 	path = lib/helloworld
 	url = git@github.com:Vishwas1/democpplib.git
 	branch = master
+[submodule "lib/bitcoin"]
+	path = lib/bitcoin
+	url = git@github.com:zagg-protocol/bitzag.git
+	branch = zagg_dev

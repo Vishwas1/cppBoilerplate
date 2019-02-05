@@ -32,10 +32,28 @@ AC_MSG_CHECKING([whether to build app1])
 AM_CONDITIONAL([BUILD_APP1], [test x$build_app1 = xyes])
 AC_MSG_RESULT($build_app1)
 
+
 libhelloworld_LIBS='$(top_builddir)/lib/helloworld/src/libhelloworld.a'
+# bitcoin_util_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_util.a'
+libbitcoin_server_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_server.a'
+# libbitcoin_consensus_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_consensus.a'
+# libbitcoin_cli_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_cli.a'
+# libbitcoin_common_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_common.a'
+# libbitcoin_all_LIBS='$(top_builddir)/lib/bitcoin/src/libbitcoin_all.a'
+# libbitcoin_CFLAGS='-isystem $(top_builddir)/lib/bitcoin/src/'
+# libunivalue_CFLAGS='-isystem $(top_builddir)/lib/bitcoin/src/univalue/include'
 
 AC_SUBST(APP1_NAME)
 AC_SUBST(libhelloworld_LIBS)
+# AC_SUBST(bitcoin_util_LIBS)
+# AC_SUBST(libbitcoin_consensus_LIBS)
+# AC_SUBST(libbitcoin_cli_LIBS)
+# AC_SUBST(libbitcoin_common_LIBS)
+# AC_SUBST(libbitcoin_all_LIBS)
+AC_SUBST(libbitcoin_server_LIBS)
+
+
+# AC_SUBST(libbitcoin_CFLAGS)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT

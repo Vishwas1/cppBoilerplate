@@ -15,7 +15,7 @@ AM_LDFLAGS = $(BOOST_LDFLAGS)
 app1_SOURCES = app1main.cc 
 
 # app1_CPPFLAGS= -I../include
-app1_CPPFLAGS = -I$(top_srcdir)/lib/helloworld/src
+app1_CPPFLAGS = -I$(top_srcdir)/lib/helloworld/src -I$(top_srcdir)/lib/bitcoin/src
 
 # specifies the libraries that must be passed to the linker to build the target.
-app1_LDADD = $(libhelloworld_LIBS) $(INTLLIBS) $(BOOST_LIBS)
+app1_LDADD = $(libhelloworld_LIBS) $(libbitcoin_server_LIBS) $(INTLLIBS) $(BOOST_LIBS) 

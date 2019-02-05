@@ -47,7 +47,12 @@ http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
 
 
 
+### concepts
 
+- Shared and Static library
+- Submodules
+- Boost libraries
+- 
 
 
 

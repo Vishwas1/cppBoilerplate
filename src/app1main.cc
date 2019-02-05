@@ -6,10 +6,20 @@
 
 #include <cstdlib>
 #include <helloworld.h>
+#include <rpc/server.h>
+// #include <rpc/rawtransaction.h>
+
+
 using namespace std;
 
 int main ()
 {
+  
+  VishwasTestMethod();
+  // PrintExceptionContinue(NULL, "messae");
+  // SendRawTransactionZagg("hex");
+  return 0; 
+
   message m;
   cout << "This is app1 \n";
   string message = "From app1";
@@ -30,6 +40,7 @@ int main ()
 
   tt = system_clock::to_time_t ( tomorrow );
   std::cout << "tomorrow will be: " << ctime(&tt);
+  
 
   return 0;
 }
