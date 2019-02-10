@@ -1,7 +1,3 @@
-# build-config-cpp-proj
-
-learning build configuration of an open source cpp project.
-
 ## Overview
 
 Obtaining software directly from the source code is a common procedure on Unix computers, and generally involves the following three steps:
