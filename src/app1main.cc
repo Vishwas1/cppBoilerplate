@@ -5,42 +5,185 @@
 #include <chrono>
 
 #include <cstdlib>
-#include <helloworld.h>
+
+
+#include <config/bitcoin-config.h>
+#include <chainparams.h>
+#include <clientversion.h>
+#include <compat.h>
+#include <fs.h>
+#include <interfaces/chain.h>
 #include <rpc/server.h>
-// #include <rpc/rawtransaction.h>
+#include <init.h>
+#include <noui.h>
+#include <shutdown.h>
+#include <util/system.h>
+#include <httpserver.h>
+#include <httprpc.h>
+#include <util/strencodings.h>
+#include <walletinitinterface.h>
 
 
 using namespace std;
 
-int main ()
+
+
+
+static void WaitForShutdown()
 {
-  
-  VishwasTestMethod();
-  // PrintExceptionContinue(NULL, "messae");
-  // SendRawTransactionZagg("hex");
-  return 0; 
-
-  message m;
-  cout << "This is app1 \n";
-  string message = "From app1";
-  m.printMessage(message);
-
-
-  using namespace std::chrono;
-
-  duration<int,std::ratio<60*60*24> > one_day (1);
-
-  system_clock::time_point today = system_clock::now();
-  system_clock::time_point tomorrow = today + one_day;
-
-  time_t tt;
-
-  tt = system_clock::to_time_t ( today );
-  std::cout << "today is: " << ctime(&tt);
-
-  tt = system_clock::to_time_t ( tomorrow );
-  std::cout << "tomorrow will be: " << ctime(&tt);
-  
-
-  return 0;
+    while (!ShutdownRequested())
+    {
+        MilliSleep(200);
+    }
+    Interrupt();
 }
+
+static bool AppInit(int argc, char* argv[])
+{
+    InitInterfaces interfaces;
+    interfaces.chain = interfaces::MakeChain();
+
+    bool fRet = false;
+
+    //
+    // Parameters
+    //
+    // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
+    SetupServerArgs();
+    std::string error;
+    if (!gArgs.ParseParameters(argc, argv, error)) {
+        fprintf(stderr, "Error parsing command line arguments: %s\n", error.c_str());
+        return false;
+    }
+
+    // Process help and version before taking care about datadir
+    if (HelpRequested(gArgs) || gArgs.IsArgSet("-version")) {
+        std::string strUsage = PACKAGE_NAME " Daemon version " + FormatFullVersion() + "\n";
+
+        if (gArgs.IsArgSet("-version"))
+        {
+            strUsage += FormatParagraph(LicenseInfo()) + "\n";
+        }
+        else
+        {
+            strUsage += "\nUsage:  bitcoind [options]                     Start " PACKAGE_NAME " Daemon\n";
+            strUsage += "\n" + gArgs.GetHelpMessage();
+        }
+
+        fprintf(stdout, "%s", strUsage.c_str());
+        return true;
+    }
+
+    try
+    {
+        if (!fs::is_directory(GetDataDir(false)))
+        {
+            fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", gArgs.GetArg("-datadir", "").c_str());
+            return false;
+        }
+        if (!gArgs.ReadConfigFiles(error, true)) {
+            fprintf(stderr, "Error reading configuration file: %s\n", error.c_str());
+            return false;
+        }
+        // Check for -testnet or -regtest parameter (Params() calls are only valid after this clause)
+        try {
+            SelectParams(gArgs.GetChainName());
+        } catch (const std::exception& e) {
+            fprintf(stderr, "Error: %s\n", e.what());
+            return false;
+        }
+
+        // Error out when loose non-argument tokens are encountered on command line
+        for (int i = 1; i < argc; i++) {
+            if (!IsSwitchChar(argv[i][0])) {
+                fprintf(stderr, "Error: Command line contains unexpected token '%s', see bitcoind -h for a list of options.\n", argv[i]);
+                return false;
+            }
+        }
+
+        // -server defaults to true for bitcoind but not for the GUI so do this here
+        gArgs.SoftSetBoolArg("-server", true);
+        // Set this early so that parameter interactions go to console
+        InitLogging();
+        InitParameterInteraction();
+        if (!AppInitBasicSetup())
+        {
+            // InitError will have been called with detailed error, which ends up on console
+            return false;
+        }
+        if (!AppInitParameterInteraction())
+        {
+            // InitError will have been called with detailed error, which ends up on console
+            return false;
+        }
+        if (!AppInitSanityChecks())
+        {
+            // InitError will have been called with detailed error, which ends up on console
+            return false;
+        }
+        if (gArgs.GetBoolArg("-daemon", false))
+        {
+#if HAVE_DECL_DAEMON
+            fprintf(stdout, "Bitcoin server starting\n");
+
+            // Daemonize
+            if (daemon(1, 0)) { // don't chdir (1), do close FDs (0)
+                fprintf(stderr, "Error: daemon() failed: %s\n", strerror(errno));
+                return false;
+            }
+#else
+            fprintf(stderr, "Error: -daemon is not supported on this operating system\n");
+            return false;
+#endif // HAVE_DECL_DAEMON
+        }
+        // Lock data directory after daemonization
+        if (!AppInitLockDataDirectory())
+        {
+            // If locking the data directory failed, exit immediately
+            return false;
+        }
+        fRet = AppInitMain(interfaces);
+    }
+    catch (const std::exception& e) {
+        PrintExceptionContinue(&e, "AppInit()");
+    } catch (...) {
+        PrintExceptionContinue(nullptr, "AppInit()");
+    }
+
+    if (!fRet)
+    {
+        Interrupt();
+    } else {
+        WaitForShutdown();
+    }
+    Shutdown(interfaces);
+
+    return fRet;
+}
+
+
+int
+main(int argc, char* const* argv)
+{
+    std::cout << "step1";
+    
+    SetupEnvironment();
+
+    // Connect bitcoind signal handlers
+    noui_connect();
+
+
+    std::cout<< "initialization  of appInit - bitcoin \n";
+
+    // converting  char* const* to char* array
+    char* argvArray[argc];
+    for(int i=0; i<argc; i++){
+        argvArray[i] = argv[i];
+    }
+
+    bool test = AppInit(argc, argvArray);
+
+   
+    return 0;
+}
+
