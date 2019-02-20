@@ -1,3 +1,20 @@
+## General Autoconf formate
+
+```
+AC_INIT(package, version, bug-report-address )
+information on the package
+checks for programs
+checks for libraries
+checks for header files
+checks for types
+checks for structures
+checks for compiler characteristics
+checks for library functions
+checks for system services
+AC_CONFIG_FILES([file...])
+AC_OUTPUT
+```
+
 ## Overview
 
 Obtaining software directly from the source code is a common procedure on Unix computers, and generally involves the following three steps:
@@ -113,6 +130,8 @@ To get the HEAD of each submodule
 - `./configure`
 - `make`
 
+Note* : This you dont have to do now. It is automatically handled when you run `./autogen.sh` in the boiler plate. However, please take a look in the `bash case` specified in the `./autogen.sh` file for any kind of change in commands (as they could be library dependent)
+
 
 http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
 
@@ -123,7 +142,7 @@ http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
 ### Using BOOST library in project
 
 - The Boost C++ Libraries are a collection of modern libraries based on the C++ standard.
-- Follow [this](adding boost library.md) doc for more about Boost.
+- Follow [this](https://github.com/Vishwas1/cppBoilerplate/blob/boiler/adding%20boost%20library.md) doc for more about Boost.
 
 ## references
 
