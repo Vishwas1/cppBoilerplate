@@ -123,15 +123,14 @@ http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
 ### Using BOOST library in project
 
 - The Boost C++ Libraries are a collection of modern libraries based on the C++ standard.
-- 
+- Follow [this](adding boost library.md) doc for more about Boost.
 
 ## references
 
 - [Build system](https://en.wikipedia.org/wiki/GNU_Build_System)
 - [Makefile.in vs Makefile.am](https://stackoverflow.com/questions/2531827/what-are-makefile-am-and-makefile-in)
 - [Magic behind configure, make, make install](https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install)
-
-
+- [bash programming](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html)
 
 
 

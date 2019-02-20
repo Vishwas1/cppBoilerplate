@@ -1,6 +1,25 @@
-# submodules
-git submodule init
-git submodule update
+
+
+case "${skip_submodules}" in
+    0|no|false|"")
+        git submodule update --init
+        git submodule foreach '
+            echo "Executing submodule : " $path " ********"
+            autogen=$(find . -name autogen.sh)
+            if [ -x "$autogen" ]; then
+                cd $(dirname "$autogen")
+                echo $path
+                ./autogen.sh
+                ./configure
+                make
+            fi
+            '
+    ;;
+esac
+
+# # submodules
+# git submodule init
+# git submodule update
 
 # autoconf
 aclocal
@@ -8,15 +27,3 @@ autoconf
 touch README INSTALL NEWS AUTHORS ChangeLog
 automake --add-missing
 
-# autoreconf -vfi 
-
-
-# git submodule foreach '
-#     autogen=$(find . -name autogen.sh)
-#     if [ -x "$autogen" ]; then
-#         cd $(dirname "$autogen")
-#             ./autogen.sh
-#             ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" --disable-zmq --disable-wallet --without-gui --without-miniupnpc
-#             make -j 8
-#     fi
-# '
