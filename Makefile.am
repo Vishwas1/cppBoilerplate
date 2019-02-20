@@ -11,3 +11,5 @@ APP1_BIN=$(top_builddir)/src/$(APP1_NAME)$(EXEEXT)
 $(APP1_BIN): FORCE
 	$(MAKE) -C src $(@F)
 
+CLEANFILES = `git check-ignore -v *` `git check-ignore **/*`
+MAINTAINERCLEANFILES = $(srcdir)/Makefile.in $(srcdir)/*~ $(srcdir)/*/*~

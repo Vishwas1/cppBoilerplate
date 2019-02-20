@@ -19,7 +19,7 @@ AC_OUTPUT
 
 ```
 clone 
-./autogen.sh this is download submodules as well.
+./autogen.sh this will execute autoreconf as well as will download submodules.
 ./configure --with-app1=yes  or ./configure
 make
 
