@@ -1,5 +1,3 @@
-
-
 case "${skip_submodules}" in
     0|no|false|"")
         git submodule update --init
@@ -17,13 +15,10 @@ case "${skip_submodules}" in
     ;;
 esac
 
-# # submodules
-# git submodule init
-# git submodule update
-
+##old style
+# aclocal
 # autoconf
-aclocal
-autoconf
-touch README INSTALL NEWS AUTHORS ChangeLog
-automake --add-missing
+# touch README INSTALL NEWS AUTHORS ChangeLog
+# automake --add-missing
+autoreconf -i
 

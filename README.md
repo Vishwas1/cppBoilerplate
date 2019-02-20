@@ -1,4 +1,4 @@
-## General Autoconf formate
+## General Autoconf format
 
 ```
 AC_INIT(package, version, bug-report-address )
@@ -13,6 +13,16 @@ checks for library functions
 checks for system services
 AC_CONFIG_FILES([file...])
 AC_OUTPUT
+```
+
+## Installation instructions
+
+```
+clone 
+./autogen.sh this is download submodules as well.
+./configure --with-app1=yes  or ./configure
+make
+
 ```
 
 ## Overview

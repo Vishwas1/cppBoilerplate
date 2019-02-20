@@ -54,33 +54,9 @@ share/setup.nsi
 *.lo
 *.la
 
-# Compilation and Qt preprocessor part
-*.qm
-background.tiff*
 
 # Unit-tests
 Makefile.test
-
-# Resources cpp
-qrc_*.cpp
-
-# Mac specific
-.DS_Store
-build
-
-#lcov
-*.gcno
-*.gcda
-/*.info
-
-!src/leveldb*/Makefile
-
-/doc/doxygen/
-
-contrib/devtools/split-debug.sh
-
-# Output from running db4 installation
-db4/
 
 compile
 depcomp
